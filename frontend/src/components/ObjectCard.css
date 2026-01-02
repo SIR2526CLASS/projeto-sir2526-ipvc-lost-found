@@ -1,0 +1,70 @@
+.object-card {
+  background: #fff;
+  border: 1px solid #ece9f5;
+  border-radius: 14px;
+  padding: 1rem 1rem 1.25rem;
+  box-shadow: 0 10px 30px rgba(51, 36, 94, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.object-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: #e8e7f1;
+  color: #3b2a6a;
+}
+
+.badge--found {
+  background: #e8f7ee;
+  color: #1f7a4d;
+}
+
+.badge--lost {
+  background: #fff1f0;
+  color: #c0353b;
+}
+
+.object-card__date {
+  color: #7b739a;
+  font-size: 0.9rem;
+}
+
+.object-card__title {
+  margin: 0.15rem 0 0;
+}
+
+.object-card__location {
+  margin: 0;
+  color: #4e4867;
+}
+
+.object-card__excerpt {
+  margin: 0;
+  color: #6f678a;
+  line-height: 1.5;
+}
+
+.object-card__actions {
+  margin-top: auto;
+}
+
+.link-btn {
+  text-decoration: none;
+  color: #5c2d91;
+  font-weight: 600;
+}
+
+.link-btn:hover {
+  text-decoration: underline;
+}
