@@ -31,6 +31,25 @@ const locationOptions = [
   "Auditorio",
 ];
 
+const getTodayAtMidnight = () => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return today;
+};
+
+const formatDateForInput = (date) => date.toISOString().split("T")[0];
+
+const verifyDate = (inputDate) => {
+  if (!inputDate) return false;
+  const selectedDate = new Date(inputDate);
+  if (Number.isNaN(selectedDate.getTime())) {
+    return false;
+  }
+  selectedDate.setHours(0, 0, 0, 0);
+  return selectedDate <= getTodayAtMidnight();
+};
+
+
 function Create() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
@@ -83,12 +102,21 @@ function Create() {
   };
 
   const handleDragLeave = () => setDragActive(false);
+  const maxDateValue = formatDateForInput(getTodayAtMidnight());
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
     setSuccess("");
+    if (!form.date) {
+      setError("Selecione a data do registo.");
+      return;
+    }
+    if (!verifyDate(form.date)) {
+      setError("A data nao pode ser no futuro.");
+      return;
+    }
+    setLoading(true);
     try {
       await api.post("/objects", form);
       setSuccess("Anuncio publicado com sucesso!");
@@ -192,7 +220,14 @@ function Create() {
 
         <label className="field">
           <span>Data</span>
-          <input required type="date" name="date" value={form.date} onChange={handleChange} />
+                    <input
+            required
+            type="date"
+            name="date"
+            value={form.date}
+            onChange={handleChange}
+            max={maxDateValue}
+          />
         </label>
 
         <label className="field">

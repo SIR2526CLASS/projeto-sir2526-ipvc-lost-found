@@ -32,12 +32,23 @@ function signToken(user) {
   return jwt.sign({ sub: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: "7d" });
 }
 
+const ALLOWED_EMAIL_DOMAIN = "@ipvc.pt";
+
+const hasAllowedDomain = (email) => {
+  if (typeof email !== "string") return false;
+  return email.trim().toLowerCase().endsWith(ALLOWED_EMAIL_DOMAIN);
+};
+
+
 // Auth routes
 app.post("/api/auth/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
       return res.status(400).json({ message: "Todos os campos são obrigatórios" });
+    }
+        if (!hasAllowedDomain(email)) {
+      return res.status(400).json({ message: "O registo requer um email @ipvc.pt" });
     }
     const existing = await User.findOne({ email });
     if (existing) {

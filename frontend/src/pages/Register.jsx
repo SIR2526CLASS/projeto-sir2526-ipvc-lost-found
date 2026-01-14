@@ -3,6 +3,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
+const allowedEmailDomain = "@ipvc.pt";
+
+const isAllowedEmail = (email) => {
+  return typeof email === "string" && email.trim().toLowerCase().endsWith(allowedEmailDomain);
+};
+
 function Register() {
   const navigate = useNavigate();
   const { register } = useAuth();
@@ -20,6 +26,10 @@ function Register() {
     e.preventDefault();
     if (form.password !== confirmPassword) {
       setError("As passwords nao correspondem.");
+      return;
+    }
+    if (!isAllowedEmail(form.email)) {
+      setError("Utilize um email institucional @ipvc.pt.");
       return;
     }
     setLoading(true);
