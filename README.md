@@ -78,14 +78,12 @@ A app fica em `http://localhost:5173` (default Vite).
 - `GET /api/notifications` (auth)
 
 ## Deploy
-Adicionar aqui o link e um resumo do deploy:
-
-- Backend: <URL_BACKEND_RENDER>
-- Frontend: <URL_FRONTEND_VERCEL>
+- Backend (Render): https://ipvc-lost-found.onrender.com
+- Frontend (Render): <URL_FRONTEND_RENDER>
 
 Notas:
-- Atualizar `baseURL` no frontend (`frontend/src/api/api.jsx`) para o URL de producao.
-- Garantir `JWT_SECRET` e `MONGO_URI` em variaveis de ambiente no deploy.
+- Backend: definir `MONGO_URI` e `JWT_SECRET` nas variaveis de ambiente.
+- Frontend: definir `VITE_API_URL=https://ipvc-lost-found.onrender.com/api` e `VITE_SOCKET_URL=https://ipvc-lost-found.onrender.com`.
 
 ## Membros do grupo
 - Luis Flores - 31442

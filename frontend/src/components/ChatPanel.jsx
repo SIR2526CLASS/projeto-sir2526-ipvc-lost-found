@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 import api from "../api/api";
 import { useAuth } from "../context/AuthContext";
 
-const SOCKET_URL = "http://localhost:4000";
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:4000";
 
 function formatTime(dateString) {
   const d = new Date(dateString);
