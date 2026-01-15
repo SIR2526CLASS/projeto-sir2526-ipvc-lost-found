@@ -27,6 +27,7 @@ Aplicacao web para anuncios de objetos perdidos/encontrados, com chat em tempo r
 MONGO_URI=mongodb://localhost:27017/ipvc-lostfound
 JWT_SECRET=change_me
 PORT=4000
+CORS_ORIGIN=http://localhost:5173
 ```
 
 2) Instalar dependencias:
@@ -53,7 +54,13 @@ cd frontend
 npm install
 ```
 
-2) Iniciar frontend:
+2) Copiar `.env.example` para `.env` em `frontend/` e ajustar os valores:
+```
+VITE_API_URL=http://localhost:4000/api
+VITE_SOCKET_URL=http://localhost:4000
+```
+
+3) Iniciar frontend:
 ```
 npm run dev
 ```
@@ -80,6 +87,8 @@ A app fica em `http://localhost:5173` (default Vite).
 ## Deploy
 - Backend (API): https://ipvc-lost-found.onrender.com
 - Frontend: https://ipvc-lost-found-qyuz.onrender.com/
+- No deploy do frontend, definir `VITE_API_URL` e `VITE_SOCKET_URL` com o URL da API.
+- No deploy do backend, definir `CORS_ORIGIN` com o URL do frontend (ou varios, separados por virgula).
 
 ## Membros do grupo
 - Luis Flores - 31442

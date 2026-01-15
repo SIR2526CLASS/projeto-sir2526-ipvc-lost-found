@@ -16,14 +16,27 @@ import { requireAuth } from "./middleware/requireAuth.js";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+const rawCorsOrigins = process.env.CORS_ORIGIN || "";
+const corsOrigins = rawCorsOrigins
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+const allowAllOrigins = corsOrigins.length === 0 || corsOrigins.includes("*");
+const corsOptions = allowAllOrigins
+  ? undefined
+  : {
+      origin: corsOrigins,
+      methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+    };
+app.use(corsOptions ? cors(corsOptions) : cors());
 app.use(express.json({ limit: "10mb" }));
 
 const PORT = process.env.PORT || 4000;
 const httpServer = http.createServer(app);
 const io = new SocketIOServer(httpServer, {
   cors: {
-    origin: "*",
+    origin: allowAllOrigins ? "*" : corsOrigins,
     methods: ["GET", "POST"],
   },
 });
